@@ -26,7 +26,8 @@
 ;; name, ido will narrow down the list of buffers to match the text
 ;; you've typed in
 ;; http://www.emacswiki.org/emacs/InteractivelyDoThings
-(ido-mode t)
+(ido-ubiquitous-mode t)
+(ido-everywhere t)
 
 ;; This allows partial matches, e.g. "tl" will match "Tyrion Lannister"
 (setq ido-enable-flex-matching t)
@@ -59,3 +60,4 @@
 
 ;; projectile everywhere!
 (projectile-global-mode)
+
