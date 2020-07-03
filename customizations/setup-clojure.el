@@ -26,6 +26,12 @@
             (define-clojure-indent (facts 1))
 	    (rainbow-delimiters-mode)))
 
+;; Use clojure mode for other extensions
+(add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.cljs.*$" . clojurescript-mode))
+(add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
+
 ;;;;
 ;; Cider
 ;;;;
@@ -49,13 +55,6 @@
 ;; enable paredit in your REPL
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
 
-;; Use clojure mode for other extensions
-(add-to-list 'auto-mode-alist '("\\.edn$" . clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.boot$" . clojure-mode))
-(add-to-list 'auto-mode-alist '("\\.cljs.*$" . clojure-mode))
-(add-to-list 'auto-mode-alist '("lein-env" . enh-ruby-mode))
-
-
 ;; key bindings
 ;; these help me out with the way I usually develop web apps
 (defun cider-start-http-server ()
@@ -71,11 +70,13 @@
   (interactive)
   (cider-interactive-eval (format "(user/reset)")))
 
+
 (defun cider-user-ns ()
   (interactive)
   (cider-repl-set-ns "user"))
 
-(eval-after-load 'cider
+;; These seem to break evaluating code using C-x C-e and also compiling C-c C-k
+'(eval-after-load 'cider
   '(progn
      (define-key clojure-mode-map (kbd "C-c C-v") 'cider-start-http-server)
      (define-key clojure-mode-map (kbd "C-M-r") 'cider-refresh)
